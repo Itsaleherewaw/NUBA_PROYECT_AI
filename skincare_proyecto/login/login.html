@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Iniciar Sesión - NUBA</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-purple: #9b3876;
+      --dark-purple: #6b1f52;
+      --light-purple: #c54b8c;
+      --accent-pink: #f8e8f3;
+      --bg-light: #fefbfc;
+      --text-dark: #2d1b26;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #fefbfc 0%, #f8e8f3 50%, #fefbfc 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 80%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(155,56,118,0.08) 0%, transparent 70%);
+      animation: float 20s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-30px, 30px) rotate(5deg); }
+    }
+
+    .login-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 30px;
+      padding: 3rem;
+      box-shadow: 0 20px 60px rgba(155,56,118,0.15);
+      border: 1px solid rgba(155,56,118,0.1);
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .brand-logo {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary-purple);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .brand-tagline {
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+
+    .welcome-text {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .welcome-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .welcome-subtitle {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+      display: block;
+      font-size: 0.9rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border: 2px solid rgba(155,56,118,0.2);
+      border-radius: 15px;
+      font-size: 1rem;
+      transition: all 0.3s;
+      background: white;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-purple);
+      box-shadow: 0 5px 15px rgba(155,56,118,0.15);
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--primary-purple);
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      transition: all 0.3s;
+    }
+
+    .toggle-password:hover {
+      opacity: 0.7;
+    }
+
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .remember-me input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary-purple);
+      cursor: pointer;
+    }
+
+    .remember-me label {
+      color: var(--text-dark);
+      cursor: pointer;
+      margin: 0;
+    }
+
+    .forgot-password {
+      color: var(--primary-purple);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .forgot-password:hover {
+      opacity: 0.7;
+    }
+
+    .btn-login {
+      width: 100%;
+      background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+      color: white;
+      border: none;
+      padding: 1.1rem;
+      border-radius: 15px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      box-shadow: 0 8px 25px rgba(155,56,118,0.25);
+    }
+
+    .btn-login:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(155,56,118,0.35);
+    }
+
+    .btn-login:active {
+      transform: translateY(-1px);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 2rem 0;
+      gap: 1rem;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(155,56,118,0.2);
+    }
+
+    .divider-text {
+      color: #666;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .social-login {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .social-btn {
+      flex: 1;
+      padding: 1rem;
+      border: 2px solid rgba(155,56,118,0.2);
+      background: white;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-btn:hover {
+      border-color: var(--primary-purple);
+      background: var(--accent-pink);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(155,56,118,0.15);
+    }
+
+    .register-link {
+      text-align: center;
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    .register-link a {
+      color: var(--primary-purple);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .register-link a:hover {
+      opacity: 0.7;
+    }
+
+    .back-home {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .back-home a {
+      color: var(--primary-purple);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .back-home a:hover {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 576px) {
+      .login-card {
+        padding: 2rem;
+      }
+
+      .brand-name {
+        font-size: 2.5rem;
+      }
+
+      .welcome-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-card">
+      <!-- Brand Logo -->
+      <div class="brand-logo">
+        <div class="brand-name">NUBA</div>
+        <p class="brand-tagline">Skincare Boutique Natural</p>
+      </div>
+
+      <!-- Welcome Text -->
+      <div class="welcome-text">
+        <h1 class="welcome-title">¡Bienvenida de nuevo!</h1>
+        <p class="welcome-subtitle">Inicia sesión para continuar con tu rutina de belleza</p>
+      </div>
+
+      <!-- Login Form -->
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="email">Correo Electrónico</label>
+          <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            placeholder="tu@email.com"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">Contraseña</label>
+          <div class="password-wrapper">
+            <input 
+              type="password" 
+              class="form-control" 
+              id="password" 
+              placeholder="••••••••"
+              required
+            >
+            <button type="button" class="toggle-password" onclick="togglePassword()">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <div class="remember-me">
+            <input type="checkbox" id="remember">
+            <label for="remember">Recordarme</label>
+          </div>
+          <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit" class="btn-login">Iniciar Sesión</button>
+      </form>
+
+      <!-- Divider -->
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-text">O continúa con</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <!-- Social Login -->
+      <div class="social-login">
+        <button class="social-btn" onclick="socialLogin('Google')">
+          🔵
+        </button>
+        <button class="social-btn" onclick="socialLogin('Facebook')">
+          💙
+        </button>
+        <button class="social-btn" onclick="socialLogin('Apple')">
+          🍎
+        </button>
+      </div>
+
+      <!-- Register Link -->
+      <p class="register-link">
+        ¿No tienes una cuenta? <a href="registro.html">Regístrate aquí</a>
+      </p>
+    </div>
+
+    <!-- Back to Home -->
+    <div class="back-home">
+      <a href="../index.html">← Volver al inicio</a>
+    </div>
+  </div>
+
+  <script>
+    // Toggle password visibility
+    function togglePassword() {
+      const passwordInput = document.getElementById('password');
+      const toggleBtn = document.querySelector('.toggle-password');
+      
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleBtn.textContent = '🙈';
+      } else {
+        passwordInput.type = 'password';
+        toggleBtn.textContent = '👁️';
+      }
+    }
+
+    // Login form submission
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const remember = document.getElementById('remember').checked;
+
+      // Simulación de login
+      console.log('Login:', { email, password, remember });
+
+      // Mostrar loading
+      const btn = document.querySelector('.btn-login');
+      const originalText = btn.textContent;
+      btn.textContent = 'Iniciando sesión...';
+      btn.disabled = true;
+
+      // Simular delay de API
+      setTimeout(() => {
+        alert('¡Bienvenida a NUBA! ✨');
+        // Aquí redirigirías al dashboard
+        window.location.href = '../dashboards/cliente.html';
+      }, 1500);
+    });
+
+    // Social login
+    function socialLogin(provider) {
+      alert(`Iniciando sesión con ${provider}...`);
+      // Aquí implementarías la lógica de OAuth
+    }
+
+    // Forgot password
+    document.querySelector('.forgot-password').addEventListener('click', function(e) {
+      e.preventDefault();
+      const email = prompt('Ingresa tu correo electrónico para recuperar tu contraseña:');
+      if (email) {
+        alert(`Se ha enviado un enlace de recuperación a ${email} ✉️`);
+      }
+    });
+  </script>
+
+</body>
+</html>

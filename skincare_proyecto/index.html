@@ -1,0 +1,1485 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NUBA - Skincare Boutique Natural</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-purple: #9b3876;
+      --dark-purple: #6b1f52;
+      --light-purple: #c54b8c;
+      --accent-pink: #f8e8f3;
+      --bg-light: #fefbfc;
+      --text-dark: #2d1b26;
+      --cream: #f9f5f1;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Navbar Premium */
+    .navbar {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 3px rgba(155,56,118,0.05);
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+      padding: 0.8rem 0;
+      box-shadow: 0 4px 20px rgba(155,56,118,0.1);
+    }
+
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-purple) !important;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .navbar-brand:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-link {
+      color: var(--text-dark) !important;
+      font-weight: 500;
+      margin: 0 1.2rem;
+      transition: all 0.3s;
+      position: relative;
+      font-size: 0.95rem;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background: var(--primary-purple);
+      transition: width 0.3s;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 80%;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--primary-purple) !important;
+    }
+
+    .phone-number {
+      color: var(--primary-purple);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.6rem 1.5rem;
+      border: 2px solid var(--primary-purple);
+      border-radius: 25px;
+      transition: all 0.3s;
+    }
+
+    .phone-number:hover {
+      background: var(--primary-purple);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(155,56,118,0.3);
+    }
+
+    /* Hero Section Premium */
+    .hero-section {
+      background: linear-gradient(135deg, #fefbfc 0%, #f8e8f3 50%, #fefbfc 100%);
+      padding: 8rem 0 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 80%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(155,56,118,0.08) 0%, transparent 70%);
+      animation: float 20s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-30px, 30px) rotate(5deg); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-eyebrow {
+      color: var(--primary-purple);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      background: white;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(155,56,118,0.1);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--text-dark);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      color: #666;
+      margin-bottom: 1rem;
+      font-weight: 300;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+      max-width: 600px;
+      color: #666;
+      line-height: 1.7;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+
+    .hero-image {
+      position: relative;
+      animation: fadeInUp 0.8s ease 0.6s both;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 500px;
+      filter: drop-shadow(0 20px 60px rgba(155,56,118,0.2));
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: var(--primary-purple);
+      border-radius: 50%;
+      padding: 1.5rem;
+    }
+
+    .carousel-indicators button {
+      background-color: var(--primary-purple);
+    }
+
+    @keyframes floatImage {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    /* Categories Premium */
+    .categories-section {
+      padding: 6rem 0;
+      background: white;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-eyebrow {
+      color: var(--primary-purple);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: var(--text-dark);
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .category-card {
+      background: white;
+      border-radius: 25px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(155,56,118,0.08);
+      height: 100%;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(155,56,118,0.05), rgba(197,75,140,0.05));
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .category-card:hover::before {
+      opacity: 1;
+    }
+
+    .category-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 60px rgba(155,56,118,0.15);
+      border-color: var(--primary-purple);
+    }
+
+    .category-image {
+      width: 100%;
+      height: 280px;
+      background: linear-gradient(135deg, #f8e8f3 0%, #e8d4e4 50%, #f5e9f0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-image::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+      50% { transform: translate(-30%, -30%) rotate(180deg); }
+    }
+
+    .category-icon {
+      font-size: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .category-body {
+      padding: 2rem;
+    }
+
+    .category-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--primary-purple);
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+
+    .category-description {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* Featured Products Premium */
+    .featured-section {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, #fefbfc 0%, #f8e8f3 50%, #fefbfc 100%);
+      position: relative;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 25px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(155,56,118,0.05);
+      height: 100%;
+      position: relative;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 60px rgba(155,56,118,0.2);
+      border-color: var(--primary-purple);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 25px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      z-index: 10;
+      box-shadow: 0 4px 15px rgba(155,56,118,0.3);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 300px;
+      background: linear-gradient(135deg, #f8e8f3 0%, #e8d4e4 50%, #f5e9f0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-purple);
+      font-weight: 600;
+      font-size: 1.2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-image::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+      animation: shimmer 3s infinite;
+    }
+
+    .product-body {
+      padding: 2rem;
+    }
+
+    .product-rating {
+      color: #ffa500;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .product-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--text-dark);
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+
+    .product-description {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(155,56,118,0.1);
+    }
+
+    .product-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-purple);
+    }
+
+    /* Buttons Premium */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+      border: none;
+      padding: 1rem 2.5rem;
+      font-weight: 600;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 25px rgba(155,56,118,0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(155,56,118,0.35);
+    }
+
+    .btn-outline-primary {
+      color: var(--primary-purple);
+      border: 2px solid var(--primary-purple);
+      padding: 0.7rem 1.8rem;
+      font-weight: 600;
+      border-radius: 25px;
+      background: white;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    .btn-outline-primary:hover {
+      background: var(--primary-purple);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(155,56,118,0.25);
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      padding: 6rem 0;
+      background: white;
+    }
+
+    .testimonial-card {
+      background: var(--accent-pink);
+      padding: 2.5rem;
+      border-radius: 25px;
+      height: 100%;
+      transition: all 0.3s;
+      border: 1px solid rgba(155,56,118,0.1);
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(155,56,118,0.15);
+    }
+
+    .testimonial-text {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-dark);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .author-info h5 {
+      margin: 0;
+      color: var(--primary-purple);
+      font-weight: 600;
+    }
+
+    .author-info p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    /* Newsletter Section */
+    .newsletter-section {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--primary-purple) 0%, var(--dark-purple) 100%);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .newsletter-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 80%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .newsletter-content {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .newsletter-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .newsletter-form input {
+      flex: 1;
+      padding: 1.2rem 2rem;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+    }
+
+    .newsletter-form button {
+      background: white;
+      color: var(--primary-purple);
+      border: none;
+      padding: 1.2rem 2.5rem;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .newsletter-form button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* Footer Premium */
+    footer {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: white;
+      padding: 4rem 0 2rem;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: 0.15em;
+    }
+
+    .footer-description {
+      color: rgba(255,255,255,0.7);
+      line-height: 1.7;
+    }
+
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: white;
+      padding-left: 5px;
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+    }
+
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 3rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">NUBA</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="Productos.html">Productos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#categorias">Categorías</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="login/login.html">Ingresar</a></li>
+          <li class="nav-item ms-3">
+            <a class="phone-number" href="tel:+59170514802">+591 70514802</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-content">
+          <span class="hero-eyebrow">✨ Natural Beauty</span>
+          <h1 class="hero-title">
+            Cuida tu piel con
+            <span class="gradient-text">lo mejor</span>
+          </h1>
+          <p class="hero-subtitle">#explorabeleza</p>
+          <p class="hero-description">
+            Descubre nuestra línea exclusiva de cosmética natural. Productos cuidadosamente seleccionados con ingredientes puros para tu rutina de skincare.
+          </p>
+          <div class="d-flex gap-3">
+            <a href="Productos.html" class="btn btn-primary btn-lg">Explorar Productos</a>
+            <a href="#categorias" class="btn btn-outline-primary btn-lg">Ver Categorías</a>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-image">
+          <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+              <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+              <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_yRBApOmAcPZyrEYI27HHXhhy0o5wgFOLHg&s" alt="Mixsoon Products" class="d-block w-100" style="border-radius: 20px;">
+              </div>
+              <div class="carousel-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH7GqQJ9EmT2MQyEseRQRQPw6EseAtTORftAFUdoh_1pMvtGUzuAm_zqVmf6v7QnL_f8M&usqp=CAU" alt="Caudalie Products" class="d-block w-100" style="border-radius: 20px;">
+              </div>
+              <div class="carousel-item">
+                <img src="https://cdn.correodelsur.com/img/contents/images_980/2023/12/01/41cd5d3a-763b-48a0-8060-8446a2026135.jpg" alt="Centella Products" class="d-block w-100" style="border-radius: 20px;">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Siguiente</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Section -->
+  <section class="categories-section" id="categorias">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Explora</p>
+        <h2 class="section-title">Nuestras Categorías</h2>
+        <p class="section-subtitle">Encuentra exactamente lo que tu piel necesita en nuestra selección curada</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="category-card">
+            <div class="category-image">
+              <div class="category-icon">💄</div>
+            </div>
+            <div class="category-body">
+              <h3 class="category-title">Sérums</h3>
+              <p class="category-description">Tratamientos intensivos con ingredientes activos concentrados</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="category-card">
+            <div class="category-image">
+              <div class="category-icon">🧴</div>
+            </div>
+            <div class="category-body">
+              <h3 class="category-title">Limpiadores</h3>
+              <p class="category-description">Limpieza profunda respetando el balance natural de tu piel</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="category-card">
+            <div class="category-image">
+              <div class="category-icon">✨</div>
+            </div>
+            <div class="category-body">
+              <h3 class="category-title">Cremas</h3>
+              <p class="category-description">Hidratación y nutrición para cada tipo de piel</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 col-lg-3">
+          <div class="category-card">
+            <div class="category-image">
+              <div class="category-icon">🌸</div>
+            </div>
+            <div class="category-body">
+              <h3 class="category-title">Aceites</h3>
+              <p class="category-description">Tratamientos naturales con botánicos puros</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Bestsellers</p>
+        <h2 class="section-title">Productos Destacados</h2>
+        <p class="section-subtitle">Los favoritos de nuestros clientes</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-badge">Bestseller</div>
+            <div class="product-image"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHwz-TKhWWYtSpcmTbGeCTEwMZTzMsjCdjJQ&s" alt=""></div>
+            <div class="product-body">
+              <div class="product-rating">★★★★★</div>
+              <h5 class="product-name">Sérum Hidratante Vital</h5>
+              <p class="product-description">Ácido hialurónico + niacinamida. Apto para todo tipo de piel.</p>
+              <div class="product-footer">
+                <span class="product-price">$149.90</span>
+                <a href="Productos.html" class="btn btn-outline-primary btn-sm">Ver</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-badge">Nuevo</div>
+            <div class="product-image"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOUT-t2zQVbESqNYIncmsImpJ-y7wAX5MKCw&s" alt=""></div>
+            <div class="product-body">
+              <div class="product-rating">★★★★★</div>
+              <h5 class="product-name">Limpiador Suave Daily</h5>
+              <p class="product-description">Sin sulfatos, limpia sin resecar tu piel.</p>
+              <div class="product-footer">
+                <span class="product-price">$79.50</span>
+                <a href="Productos.html" class="btn btn-outline-primary btn-sm">Ver</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-badge">Popular</div>
+            <div class="product-image"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm781OT9Q1FpCPv5r1YG82ekyrhgw_cFXHbA&s" alt=""></div>
+            <div class="product-body">
+              <div class="product-rating">★★★★★</div>
+              <h5 class="product-name">Crema Nutritiva Night</h5>
+              <p class="product-description">Reparadora con ceramidas y vitaminas.</p>
+              <div class="product-footer">
+                <span class="product-price">$119.00</span>
+                <a href="Productos.html" class="btn btn-outline-primary btn-sm">Ver</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <div class="product-card">
+            <div class="product-badge">Esencial</div>
+            <div class="product-image"><img src="https://images.ctfassets.net/ft324xor1pp0/1Mr4GctScQft5LzbzNNGQE/c8d0c110be54fa8a56307be2bc28f89a/neutrogena-producto-sunfresh-fps50-04-es-co?fm=webp&w=3840" alt=""></div>
+            <div class="product-body">
+              <div class="product-rating">★★★★★</div>
+              <h5 class="product-name">Protector Solar 50</h5>
+              <p class="product-description">FPS 50, acabado ligero ideal para uso diario.</p>
+              <div class="product-footer">
+                <span class="product-price">$99.00</span>
+                <a href="Productos.html" class="btn btn-outline-primary btn-sm">Ver</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-5">
+        <a href="Productos.html" class="btn btn-primary btn-lg">Ver Todos los Productos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-eyebrow">Testimonios</p>
+        <h2 class="section-title">Lo Que Dicen Nuestros Clientes</h2>
+        <p class="section-subtitle">Historias reales de transformación</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="product-rating mb-3">★★★★★</div>
+            <p class="testimonial-text">
+              "Los productos de NUBA han transformado completamente mi rutina de skincare. Mi piel nunca se ha visto tan radiante y saludable."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">MG</div>
+              <div class="author-info">
+                <h5>María García</h5>
+                <p>Cliente verificada</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="product-rating mb-3">★★★★★</div>
+            <p class="testimonial-text">
+              "Excelente calidad y atención. El sérum hidratante es mi producto favorito. Llegó súper rápido y bien empaquetado."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">AR</div>
+              <div class="author-info">
+                <h5>Ana Rodríguez</h5>
+                <p>Cliente verificada</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="testimonial-card">
+            <div class="product-rating mb-3">★★★★★</div>
+            <p class="testimonial-text">
+              "Productos naturales de verdad. Se nota la calidad en cada aplicación. Totalmente recomendado para pieles sensibles."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">LP</div>
+              <div class="author-info">
+                <h5>Lucía Pérez</h5>
+                <p>Cliente verificada</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-content">
+        <h2 class="newsletter-title">Únete a Nuestra Comunidad</h2>
+        <p style="font-size: 1.1rem; opacity: 0.9;">
+          Recibe consejos exclusivos de skincare, ofertas especiales y novedades directamente en tu correo
+        </p>
+        <form class="newsletter-form">
+          <input type="email" placeholder="Tu correo electrónico" required>
+          <button type="submit">Suscribirme</button>
+        </form>
+        <p style="font-size: 0.85rem; margin-top: 1rem; opacity: 0.8;">
+          Al suscribirte aceptas recibir emails con información de NUBA
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div>
+          <div class="footer-brand">NUBA</div>
+          <p class="footer-description">
+            Cosmética natural y cuidado facial premium. Productos seleccionados para realzar tu belleza natural.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Productos.html">Productos</a></li>
+            <li><a href="#categorias">Categorías</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Cuenta</h4>
+          <ul class="footer-links">
+            <li><a href="login/login.html">Iniciar Sesión</a></li>
+            <li><a href="login/registro.html">Registrarse</a></li>
+            <li><a href="dashboards/cliente.html">Mi Cuenta</a></li>
+            <li><a href="#">Mis Pedidos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-title">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="#">Términos y Condiciones</a></li>
+            <li><a href="#">Política de Privacidad</a></li>
+            <li><a href="#">Envíos y Devoluciones</a></li>
+            <li><a href="#">Preguntas Frecuentes</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 NUBA Skincare Boutique. Todos los derechos reservados. | Diseñado con ❤️ en Bolivia</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('mainNav');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Newsletter form
+    document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('¡Gracias por suscribirte! Pronto recibirás noticias de NUBA en tu correo.');
+      this.reset();
+    });
+
+    // Add to cart simulation
+    document.querySelectorAll('.btn-outline-primary').forEach(button => {
+      button.addEventListener('click', function(e) {
+        if (this.textContent.includes('Ver')) {
+          // Navega normalmente
+          return;
+        }
+        e.preventDefault();
+        alert('Producto añadido al carrito ✓');
+      });
+    });
+  </script>
+
+<!-- CHATBOT NUBA CON GEMINI - PEGAR ANTES DE </body> EN INDEX.HTML -->
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+.nuba-chat-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #9b3876, #c54b8c);
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(155,56,118,0.4);
+    z-index: 999999;
+    transition: transform 0.2s;
+}
+
+.nuba-chat-btn:hover {
+    transform: scale(1.1);
+}
+
+.nuba-chat-box {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 400px;
+    height: 600px;
+    background: white;
+    border-radius: 15px;
+    display: none;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    z-index: 999998;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nuba-chat-box.nuba-active {
+    display: flex;
+}
+
+.nuba-chat-header {
+    background: linear-gradient(135deg, #9b3876, #6b1f52);
+    color: white;
+    padding: 15px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nuba-chat-header strong {
+    font-size: 16px;
+}
+
+.nuba-chat-header small {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.nuba-chat-close {
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nuba-chat-close:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+.nuba-chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #faf5f8;
+}
+
+.nuba-msg {
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    max-width: 80%;
+    word-wrap: break-word;
+    animation: nubaMsgFadeIn 0.3s;
+    line-height: 1.5;
+}
+
+@keyframes nubaMsgFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.nuba-msg-bot {
+    background: white;
+    align-self: flex-start;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nuba-msg-user {
+    background: #9b3876;
+    color: white;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.nuba-typing {
+    display: none;
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+    width: 60px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nuba-typing.nuba-active {
+    display: block;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+.nuba-chat-input {
+    display: flex;
+    padding: 10px;
+    gap: 8px;
+    border-top: 1px solid #eee;
+    background: white;
+    border-radius: 0 0 15px 15px;
+}
+
+.nuba-chat-input input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nuba-chat-input input:focus {
+    border-color: #9b3876;
+}
+
+.nuba-chat-input button {
+    background: #9b3876;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+    font-family: 'Poppins', sans-serif;
+}
+
+.nuba-chat-input button:hover:not(:disabled) {
+    background: #7d2d5f;
+}
+
+.nuba-chat-input button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+</style>
+
+<!-- HTML del Chatbot -->
+<button class="nuba-chat-btn" id="nubaChatToggle">🤖</button>
+
+<div class="nuba-chat-box" id="nubaChatBox">
+    <div class="nuba-chat-header">
+        <div>
+            <strong>Asistente NUBA</strong><br>
+            <small>🟢 Gemini AI</small>
+        </div>
+        <button class="nuba-chat-close" id="nubaChatClose">×</button>
+    </div>
+    
+    <div class="nuba-chat-messages" id="nubaMessages">
+        <div class="nuba-msg nuba-msg-bot">
+            ¡Hola! 👋 Soy tu asistente de NUBA Skincare. ¿En qué puedo ayudarte hoy?
+        </div>
+        <div class="nuba-typing" id="nubaTyping">●●●</div>
+    </div>
+    
+    <div class="nuba-chat-input">
+        <input type="text" id="nubaUserInput" placeholder="Escribe tu pregunta..." autocomplete="off">
+        <button id="nubaSendBtn">Enviar</button>
+    </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "@google/generative-ai": "https://esm.run/@google/generative-ai"
+  }
+}
+</script>
+
+<script type="module">
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+(function() {
+    // TU API KEY DE GEMINI
+    const API_KEY = 'AIzaSyDOlNibuG93hG1sOg1OCd-kjHIcInbz5xw';
+    
+    // Inicializar Gemini
+    const genAI = new GoogleGenerativeAI(API_KEY);
+    const model = genAI.getGenerativeModel({ 
+        model: "gemini-1.5-flash",
+        generationConfig: {
+            temperature: 0.9,
+            topP: 0.95,
+            topK: 40,
+            maxOutputTokens: 200,
+        }
+    });
+
+    // CONTEXTO NUBA - Conocimiento del bot
+    const SYSTEM_INSTRUCTION = `Eres el asistente virtual de NUBA Skincare Boutique en La Paz, Bolivia.
+
+INFORMACIÓN DE NUBA:
+- Boutique especializada en cosmética natural y cuidado de la piel
+- Ubicación: La Paz, Bolivia
+- WhatsApp: +591 70514802
+- Horario: Lun-Sáb 9:00-19:00
+- Envío gratis en compras mayores a 200 Bs
+
+PRODUCTOS PRINCIPALES:
+1. Sérum Hidratante Vital - 149.90 Bs (hidratación profunda)
+2. Limpiador Facial Suave - 79.50 Bs (limpieza diaria)
+3. Crema Night Repair - 119.00 Bs (regeneración nocturna)
+4. Protector Solar SPF 50 - 99.00 Bs (protección UV)
+5. Aceite Facial Calm - 89.90 Bs (calmar y nutrir)
+6. Tónico Refrescante - 69.00 Bs (equilibrar pH)
+7. Mascarilla Detox - 95.00 Bs (desintoxicar piel)
+8. Contorno de Ojos - 129.00 Bs (ojeras y arrugas)
+
+TU TRABAJO:
+✅ Responder SIEMPRE en español
+✅ Ser amable, profesional y útil
+✅ Respuestas cortas (máximo 3-4 líneas)
+✅ Recomendar productos según necesidades
+✅ Usar emojis naturalmente 😊✨🌿
+✅ Si preguntan precios, menciona el producto Y precio
+✅ Mencionar WhatsApp cuando pregunten contacto
+✅ Si no sabes algo, sé honesto y sugiere contactar
+
+EJEMPLOS DE RESPUESTAS:
+- "¡Claro! Para piel grasa te recomiendo nuestro Limpiador Suave (79.50 Bs) y el Tónico (69.00 Bs). ¿Te gustaría más info? 😊"
+- "Puedes contactarnos por WhatsApp: +591 70514802 📱 Estamos Lun-Sáb 9:00-19:00"
+- "Nuestro Sérum Hidratante (149.90 Bs) es perfecto para piel seca. ¡Envío gratis en compras +200 Bs! 🚚"`;
+
+    // ELEMENTOS
+    const chatToggle = document.getElementById('nubaChatToggle');
+    const chatClose = document.getElementById('nubaChatClose');
+    const chatBox = document.getElementById('nubaChatBox');
+    const userInput = document.getElementById('nubaUserInput');
+    const sendBtn = document.getElementById('nubaSendBtn');
+    const messages = document.getElementById('nubaMessages');
+    const typing = document.getElementById('nubaTyping');
+
+    // Historial de conversación
+    let chat = null;
+
+    // TOGGLE CHAT
+    function toggleChat() {
+        chatBox.classList.toggle('nuba-active');
+        if (chatBox.classList.contains('nuba-active')) {
+            userInput.focus();
+        }
+    }
+
+    chatToggle.addEventListener('click', toggleChat);
+    chatClose.addEventListener('click', toggleChat);
+
+    // AGREGAR MENSAJE
+    function addMessage(text, type) {
+        const msg = document.createElement('div');
+        msg.className = `nuba-msg nuba-msg-${type}`;
+        msg.innerHTML = text.replace(/\n/g, '<br>');
+        messages.insertBefore(msg, typing);
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    // MOSTRAR TYPING
+    function showTyping(show) {
+        typing.classList.toggle('nuba-active', show);
+        if (show) {
+            messages.scrollTop = messages.scrollHeight;
+        }
+    }
+
+    // LLAMAR A GEMINI
+    async function callGemini(userMsg) {
+        try {
+            // Inicializar chat si no existe
+            if (!chat) {
+                chat = model.startChat({
+                    history: [],
+                    generationConfig: {
+                        maxOutputTokens: 200,
+                    },
+                });
+            }
+
+            // Combinar instrucciones del sistema con mensaje del usuario
+            const fullPrompt = `${SYSTEM_INSTRUCTION}\n\nUsuario: ${userMsg}`;
+            
+            const result = await chat.sendMessage(fullPrompt);
+            const response = await result.response;
+            const text = response.text();
+            
+            return text;
+
+        } catch (error) {
+            console.error('Error Gemini:', error);
+            
+            // Respuestas de respaldo según el error
+            if (error.message?.includes('API_KEY_INVALID')) {
+                return '🔑 Hay un problema con la configuración. Por favor contacta por WhatsApp: +591 70514802';
+            } else if (error.message?.includes('RATE_LIMIT') || error.message?.includes('429')) {
+                return '⏳ Muchas consultas. Espera un momento o contáctanos por WhatsApp: +591 70514802 😊';
+            } else {
+                // Respuestas inteligentes según palabras clave
+                const msg = userMsg.toLowerCase();
+                
+                if (msg.includes('precio') || msg.includes('cuanto') || msg.includes('cuesta')) {
+                    return 'Nuestros productos van desde 69 Bs hasta 149 Bs. ¿Te interesa algo en particular? También puedo enviarte el catálogo por WhatsApp: +591 70514802 😊';
+                }
+                if (msg.includes('contacto') || msg.includes('telefono') || msg.includes('whatsapp')) {
+                    return '📱 Escríbenos por WhatsApp: +591 70514802\nHorario: Lun-Sáb 9:00-19:00';
+                }
+                if (msg.includes('envio') || msg.includes('delivery')) {
+                    return '🚚 Envío gratis en compras mayores a 200 Bs. ¿En qué zona estás?';
+                }
+                if (msg.includes('hola') || msg.includes('buenas')) {
+                    return '¡Hola! 👋 ¿En qué puedo ayudarte? Puedo recomendarte productos, resolver dudas o pasarte info por WhatsApp 😊';
+                }
+                
+                return 'Estoy aquí para ayudarte 😊 ¿Qué necesitas saber sobre nuestros productos? O escríbenos por WhatsApp: +591 70514802';
+            }
+        }
+    }
+
+    // ENVIAR MENSAJE
+    async function sendMessage() {
+        const msg = userInput.value.trim();
+        
+        if (!msg) return;
+        
+        addMessage(msg, 'user');
+        userInput.value = '';
+        sendBtn.disabled = true;
+        userInput.disabled = true;
+        
+        showTyping(true);
+        
+        const response = await callGemini(msg);
+        
+        showTyping(false);
+        addMessage(response, 'bot');
+        sendBtn.disabled = false;
+        userInput.disabled = false;
+        userInput.focus();
+    }
+
+    // EVENTOS
+    sendBtn.addEventListener('click', sendMessage);
+
+    userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !sendBtn.disabled) {
+            sendMessage();
+        }
+    });
+})();
+</script>
+</body>
+</html>
