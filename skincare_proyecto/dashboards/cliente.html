@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta - NUBA Skincare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #9b3876;
+            --dark-purple: #6b1f52;
+            --light-purple: #c54b8c;
+            --bg-light: #faf5f8;
+            --text-dark: #2d1b26;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(155,56,118,0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+            letter-spacing: 0.15em;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .btn-logout {
+            background: var(--primary-purple);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: var(--dark-purple);
+            transform: translateY(-2px);
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: 0 2px 10px rgba(155,56,118,0.08);
+        }
+
+        .sidebar h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-purple);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .menu-item {
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
+            background: var(--bg-light);
+            color: var(--primary-purple);
+        }
+
+        .menu-item.active {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(155,56,118,0.08);
+        }
+
+        .content-header {
+            margin-bottom: 2rem;
+        }
+
+        .content-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-purple);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .content-header p {
+            color: #666;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(155,56,118,0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Orders List */
+        .orders-list {
+            margin-top: 2rem;
+        }
+
+        .order-card {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-purple);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .order-number {
+            font-weight: 600;
+            color: var(--primary-purple);
+        }
+
+        .order-status {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-shipped {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .order-detail strong {
+            color: var(--text-dark);
+        }
+
+        /* Profile Form */
+        .profile-form {
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+            color: white;
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(155,56,118,0.3);
+        }
+
+        /* Favorites Grid */
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .favorite-item {
+            background: var(--bg-light);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .favorite-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(155,56,118,0.15);
+        }
+
+        .favorite-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #f8e8f3, #e8d4e4);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-purple);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .favorite-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .favorite-price {
+            color: var(--primary-purple);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border-radius: 15px 15px 0 0;
+                z-index: 100;
+            }
+
+            .sidebar h3 {
+                display: none;
+            }
+
+            .menu-item {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+            }
+
+            .main-content {
+                margin-bottom: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">NUBA</div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-name">María García</div>
+                    <div class="user-role">Cliente</div>
+                </div>
+                <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3>Mi Cuenta</h3>
+            <div class="menu-item active" onclick="showSection('overview')">
+                📊 Resumen
+            </div>
+            <div class="menu-item" onclick="showSection('orders')">
+                📦 Mis Pedidos
+            </div>
+            <div class="menu-item" onclick="showSection('favorites')">
+                ❤️ Favoritos
+            </div>
+            <div class="menu-item" onclick="showSection('profile')">
+                👤 Mi Perfil
+            </div>
+            <div class="menu-item" onclick="window.location.href='../index.html'">
+                🏠 Ir a la Tienda
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Overview Section -->
+            <section id="overview" class="content-section">
+                <div class="content-header">
+                    <h2>¡Bienvenida de nuevo, María!</h2>
+                    <p>Aquí está el resumen de tu actividad</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Pedidos Totales</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Pedidos Activos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">8</div>
+                        <div class="stat-label">Favoritos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">$1,248</div>
+                        <div class="stat-label">Total Gastado</div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: var(--primary-purple);">Últimos Pedidos</h3>
+                <div class="order-card">
+                    <div class="order-header">
+                        <span class="order-number">Pedido #1234</span>
+                        <span class="order-status status-shipped">En Tránsito</span>
+                    </div>
+                    <div class="order-details">
+                        <div class="order-detail">
+                            <strong>Fecha:</strong> 05 Nov 2025
+                        </div>
+                        <div class="order-detail">
+                            <strong>Total:</strong> $229.90
+                        </div>
+                        <div class="order-detail">
+                            <strong>Productos:</strong> 3 items
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-card">
+                    <div class="order-header">
+                        <span class="order-number">Pedido #1233</span>
+                        <span class="order-status status-completed">Entregado</span>
+                    </div>
+                    <div class="order-details">
+                        <div class="order-detail">
+                            <strong>Fecha:</strong> 28 Oct 2025
+                        </div>
+                        <div class="order-detail">
+                            <strong>Total:</strong> $149.90
+                        </div>
+                        <div class="order-detail">
+                            <strong>Productos:</strong> 1 item
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="content-section hidden">
+                <div class="content-header">
+                    <h2>Mis Pedidos</h2>
+                    <p>Historial completo de tus compras</p>
+                </div>
+
+                <div class="orders-list">
+                    <div class="order-card">
+                        <div class="order-header">
+                            <span class="order-number">Pedido #1234</span>
+                            <span class="order-status status-shipped">En Tránsito</span>
+                        </div>
+                        <div class="order-details">
+                            <div class="order-detail">
+                                <strong>Fecha:</strong> 05 Nov 2025
+                            </div>
+                            <div class="order-detail">
+                                <strong>Total:</strong> $229.90
+                            </div>
+                            <div class="order-detail">
+                                <strong>Productos:</strong> Sérum Vital, Limpiador, Crema Night
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-card">
+                        <div class="order-header">
+                            <span class="order-number">Pedido #1233</span>
+                            <span class="order-status status-completed">Entregado</span>
+                        </div>
+                        <div class="order-details">
+                            <div class="order-detail">
+                                <strong>Fecha:</strong> 28 Oct 2025
+                            </div>
+                            <div class="order-detail">
+                                <strong>Total:</strong> $149.90
+                            </div>
+                            <div class="order-detail">
+                                <strong>Productos:</strong> Sérum Hidratante Vital
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-card">
+                        <div class="order-header">
+                            <span class="order-number">Pedido #1232</span>
+                            <span class="order-status status-completed">Entregado</span>
+                        </div>
+                        <div class="order-details">
+                            <div class="order-detail">
+                                <strong>Fecha:</strong> 15 Oct 2025
+                            </div>
+                            <div class="order-detail">
+                                <strong>Total:</strong> $198.50
+                            </div>
+                            <div class="order-detail">
+                                <strong>Productos:</strong> Protector Solar, Aceite Calm
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Favorites Section -->
+            <section id="favorites" class="content-section hidden">
+                <div class="content-header">
+                    <h2>Mis Favoritos</h2>
+                    <p>Productos que te encantan</p>
+                </div>
+
+                <div class="favorites-grid">
+                    <div class="favorite-item">
+                        <div class="favorite-image">Sérum Vital</div>
+                        <div class="favorite-name">Sérum Hidratante Vital</div>
+                        <div class="favorite-price">$149.90</div>
+                        <button class="btn-primary" style="margin-top: 1rem; width: 100%; padding: 0.6rem;">Comprar</button>
+                    </div>
+
+                    <div class="favorite-item">
+                        <div class="favorite-image">Limpiador</div>
+                        <div class="favorite-name">Limpiador Suave Daily</div>
+                        <div class="favorite-price">$79.50</div>
+                        <button class="btn-primary" style="margin-top: 1rem; width: 100%; padding: 0.6rem;">Comprar</button>
+                    </div>
+
+                    <div class="favorite-item">
+                        <div class="favorite-image">Crema Night</div>
+                        <div class="favorite-name">Crema Nutritiva Night</div>
+                        <div class="favorite-price">$119.00</div>
+                        <button class="btn-primary" style="margin-top: 1rem; width: 100%; padding: 0.6rem;">Comprar</button>
+                    </div>
+
+                    <div class="favorite-item">
+                        <div class="favorite-image">Protector</div>
+                        <div class="favorite-name">Protector Solar 50</div>
+                        <div class="favorite-price">$99.00</div>
+                        <button class="btn-primary" style="margin-top: 1rem; width: 100%; padding: 0.6rem;">Comprar</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="content-section hidden">
+                <div class="content-header">
+                    <h2>Mi Perfil</h2>
+                    <p>Actualiza tu información personal</p>
+                </div>
+
+                <form class="profile-form">
+                    <div class="form-group">
+                        <label>Nombres</label>
+                        <input type="text" value="María José">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Apellidos</label>
+                        <input type="text" value="García López">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Correo Electrónico</label>
+                        <input type="email" value="maria.garcia@ejemplo.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" value="+591 70514802">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <input type="text" value="Av. Arce #1234, La Paz">
+                    </div>
+
+                    <button type="submit" class="btn-primary">Guardar Cambios</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showSection(sectionName) {
+            // Ocultar todas las secciones
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Remover active de todos los menús
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Mostrar sección seleccionada
+            document.getElementById(sectionName).classList.remove('hidden');
+
+            // Agregar active al menú correspondiente
+            event.target.classList.add('active');
+        }
+
+        function logout() {
+            if(confirm('¿Estás seguro de cerrar sesión?')) {
+                window.location.href = '../login/login.html';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Empleado - NUBA Skincare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-purple: #9b3876;
+            --dark-purple: #6b1f52;
+            --light-purple: #c54b8c;
+            --bg-light: #faf5f8;
+            --text-dark: #2d1b26;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-purple), var(--dark-purple));
+            box-shadow: 0 2px 10px rgba(155,56,118,0.2);
+            padding: 1rem 0;
+            color: white;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 0.15em;
+        }
+
+        .navbar-title {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 0.2rem;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+        }
+
+        .user-role {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .btn-logout {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border: 2px solid white;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: white;
+            color: var(--primary-purple);
+        }
+
+        /* Dashboard Layout */
+        .dashboard {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: 0 2px 10px rgba(155,56,118,0.08);
+        }
+
+        .sidebar h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-purple);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .menu-item {
+            padding: 0.9rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
+            background: var(--bg-light);
+            color: var(--primary-purple);
+        }
+
+        .menu-item.active {
+            background: var(--primary-purple);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(155,56,118,0.08);
+        }
+
+        .content-header {
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-purple);
+            font-size: 2rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-purple), var(--light-purple));
+            color: white;
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(155,56,118,0.3);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.8rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:nth-child(2) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .stat-card:nth-child(3) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .stat-card:nth-child(4) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Orders Table */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: var(--bg-light);
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-dark);
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        tr:hover {
+            background: var(--bg-light);
+        }
+
+        .status-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #cfe2ff;
+            color: #084298;
+        }
+
+        .status-completed {
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .btn-action {
+            background: var(--primary-purple);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .btn-action:hover {
+            opacity: 0.8;
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+        }
+
+        /* Customer List */
+        .customer-card {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .customer-info h4 {
+            color: var(--primary-purple);
+            margin-bottom: 0.3rem;
+        }
+
+        .customer-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .customer-stats {
+            text-align: right;
+        }
+
+        .customer-orders {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-purple);
+        }
+
+        /* Product Form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div>
+                <div class="logo">NUBA</div>
+                <div class="navbar-title">Panel de Empleado</div>
+            </div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-name">Carlos Mendoza</div>
+                    <div class="user-role">Empleado</div>
+                </div>
+                <button class="btn-logout" onclick="logout()">Cerrar Sesión</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3>Menú</h3>
+            <div class="menu-item active" onclick="showSection('dashboard')">
+                📊 Dashboard
+            </div>
+            <div class="menu-item" onclick="showSection('orders')">
+                📦 Pedidos
+            </div>
+            <div class="menu-item" onclick="showSection('customers')">
+                👥 Clientes
+            </div>
+            <div class="menu-item" onclick="showSection('inventory')">
+                📋 Inventario
+            </div>
+            <div class="menu-item" onclick="window.location.href='../index.html'">
+                🏠 Ir a la Tienda
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section">
+                <div class="content-header">
+                    <h2>Dashboard</h2>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Pedidos Pendientes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-number">156</div>
+                        <div class="stat-label">Pedidos Completados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-number">89</div>
+                        <div class="stat-label">Clientes Activos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-number">$12,450</div>
+                        <div class="stat-label">Ventas del Mes</div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; color: var(--primary-purple);">Pedidos Recientes</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#1234</td>
+                                <td>María García</td>
+                                <td>07 Nov 2025</td>
+                                <td>$229.90</td>
+                                <td><span class="status-badge status-pending">Pendiente</span></td>
+                                <td>
+                                    <button class="btn-action btn-success">Procesar</button>
+                                    <button class="btn-action">Ver</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#1233</td>
+                                <td>Juan Pérez</td>
+                                <td>06 Nov 2025</td>
+                                <td>$149.90</td>
+                                <td><span class="status-badge status-processing">Procesando</span></td>
+                                <td>
+                                    <button class="btn-action btn-success">Enviar</button>
+                                    <button class="btn-action">Ver</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#1232</td>
+                                <td>Ana Rodríguez</td>
+                                <td>06 Nov 2025</td>
+                                <td>$319.50</td>
+                                <td><span class="status-badge status-completed">Completado</span></td>
+                                <td>
+                                    <button class="btn-action">Ver</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Orders Section -->
+            <section id="orders" class="content-section hidden">
+                <div class="content-header">
+                    <h2>Gestión de Pedidos</h2>
+                    <button class="btn-primary" onclick="alert('Función de exportar en desarrollo')">📥 Exportar</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pedido</th>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>Productos</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#1234</td>
+                                <td>María García</td>
+                                <td>07 Nov 2025</td>
+                                <td>3 items</td>
+                                <td>$229.90</td>
+                                <td><span class="status-badge status-pending">Pendiente</span></td>
+                                <td>
+                                    <button class="btn-action btn-success" onclick="updateStatus(1234, 'processing')">Procesar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#1233</td>
+                                <td>Juan Pérez</td>
+                                <td>06 Nov 2025</td>
+                                <td>1 item</td>
+                                <td>$149.90</td>
+                                <td><span class="status-badge status-processing">Procesando</span></td>
+                                <td>
+                                    <button class="btn-action btn-success" onclick="updateStatus(1233, 'completed')">Completar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#1232</td>
+                                <td>Ana Rodríguez</td>
+                                <td>06 Nov 2025</td>
+                                <td>2 items</td>
+                                <td>$319.50</td>
+                                <td><span class="status-badge status-processing">Procesando</span></td>
+                                <td>
+                                    <button class="btn-action btn-success" onclick="updateStatus(1232, 'completed')">Completar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#1231</td>
+                                <td>Luis Torres</td>
+                                <td>05 Nov 2025</td>
+                                <td>4 items</td>
+                                <td>$398.00</td>
+                                <td><span class="status-badge status-completed">Completado</span></td>
+                                <td>
+                                    <button class="btn-action">Ver Detalles</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Customers Section -->
+            <section id="customers" class="content-section hidden">
+                <div class="content-header">
+                    <h2>Clientes</h2>
+                    <button class="btn-primary" onclick="alert('Agregar cliente')">+ Nuevo Cliente</button>
+                </div>
+
+                <div class="customer-card">
+                    <div class="customer-info">
+                        <h4>María García</h4>
+                        <p>maria.garcia@ejemplo.com | +591 70514802</p>
+                        <p style="margin-top: 0.5rem;">Cliente desde: Oct 2024</p>
+                    </div>
+                    <div class="customer-stats">
+                        <div class="customer-orders">12</div>
+                        <div style="font-size: 0.9rem; color: #666;">Pedidos</div>
+                    </div>
+                </div>
+
+                <div class="customer-card">
+                    <div class="customer-info">
+                        <h4>Juan Pérez</h4>
+                        <p>juan.perez@ejemplo.com | +591 71234567</p>
+                        <p style="margin-top: 0.5rem;">Cliente desde: Sep 2024</p>
+                    </div>
+                    <div class="customer-stats">
+                        <div class="customer-orders">8</div>
+                        <div style="font-size: 0.9rem; color: #666;">Pedidos</div>
+                    </div>
+                </div>
+
+                <div class="customer-card">
+                    <div class="customer-info">
+                        <h4>Ana Rodríguez</h4>
+                        <p>ana.rodriguez@ejemplo.com | +591 72345678</p>
+                        <p style="margin-top: 0.5rem;">Cliente desde: Ago 2024</p>
+                    </div>
+                    <div class="customer-stats">
+                        <div class="customer-orders">15</div>
+                        <div style="font-size: 0.9rem; color: #666;">Pedidos</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inventory Section -->
+            <section id="inventory" class="content-section hidden">
+                <div class="content-header">
+                    <h2>Inventario de Productos</h2>
+                    <button class="btn-primary" onclick="alert('Actualizar stock')">📦 Actualizar Stock</button>
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Categoría</th>
+                                <th>Precio</th>
+                                <th>Stock</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sérum Hidratante Vital</td>
+                                <td>Sérums</td>
+                                <td>$149.90</td>
+                                <td>45</td>
+                                <td><span class="status-badge status-completed">Disponible</span></td>
+                                <td>
+                                    <button class="btn-action">Editar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Limpiador Suave Daily</td>
+                                <td>Limpiadores</td>
+                                <td>$79.50</td>
+                                <td>12</td>
+                                <td><span class="status-badge status-pending">Stock Bajo</span></td>
+                                <td>
+                                    <button class="btn-action btn-warning">Reponer</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Crema Nutritiva Night</td>
+                                <td>Cremas</td>
+                                <td>$119.00</td>
+                                <td>28</td>
+                                <td><span class="status-badge status-completed">Disponible</span></td>
+                                <td>
+                                    <button class="btn-action">Editar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Protector Solar 50</td>
+                                <td>Protectores</td>
+                                <td>$99.00</td>
+                                <td>5</td>
+                                <td><span class="status-badge status-pending">Stock Bajo</span></td>
+                                <td>
+                                    <button class="btn-action btn-warning">Reponer</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function showSection(sectionName) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            document.getElementById(sectionName).classList.remove('hidden');
+            event.target.classList.add('active');
+        }
+
+        function updateStatus(orderId, newStatus) {
+            alert(`Pedido #${orderId} actualizado a: ${newStatus}`);
+        }
+
+        function logout() {
+            if(confirm('¿Cerrar sesión?')) {
+                window.location.href = '../login/login.html';
+            }
+        }
+    </script>
+</body>
+</html>
